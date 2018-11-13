@@ -10,6 +10,12 @@
 		81B100BA219AB78E0065A3B4 /* Arale.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81B100B0219AB78E0065A3B4 /* Arale.framework */; };
 		81B100BF219AB78E0065A3B4 /* AraleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B100BE219AB78E0065A3B4 /* AraleTests.swift */; };
 		81B100C1219AB78E0065A3B4 /* Arale.h in Headers */ = {isa = PBXBuildFile; fileRef = 81B100B3219AB78E0065A3B4 /* Arale.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		81B100CB219ABA6A0065A3B4 /* AraleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B100CA219ABA6A0065A3B4 /* AraleHeaderView.swift */; };
+		81B100CD219ABB440065A3B4 /* AraleHeaderViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B100CC219ABB440065A3B4 /* AraleHeaderViewDelegate.swift */; };
+		81B100CE219ABB440065A3B4 /* AraleHeaderViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B100CC219ABB440065A3B4 /* AraleHeaderViewDelegate.swift */; };
+		81B100D0219ABB500065A3B4 /* AraleHeaderViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B100CF219ABB500065A3B4 /* AraleHeaderViewDataSource.swift */; };
+		81B100D1219ABB500065A3B4 /* AraleHeaderViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B100CF219ABB500065A3B4 /* AraleHeaderViewDataSource.swift */; };
+		81B100D2219AE7EF0065A3B4 /* AraleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B100CA219ABA6A0065A3B4 /* AraleHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +35,9 @@
 		81B100B9219AB78E0065A3B4 /* AraleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AraleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		81B100BE219AB78E0065A3B4 /* AraleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AraleTests.swift; sourceTree = "<group>"; };
 		81B100C0219AB78E0065A3B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		81B100CA219ABA6A0065A3B4 /* AraleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AraleHeaderView.swift; sourceTree = "<group>"; };
+		81B100CC219ABB440065A3B4 /* AraleHeaderViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AraleHeaderViewDelegate.swift; sourceTree = "<group>"; };
+		81B100CF219ABB500065A3B4 /* AraleHeaderViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AraleHeaderViewDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +81,9 @@
 			isa = PBXGroup;
 			children = (
 				81B100B3219AB78E0065A3B4 /* Arale.h */,
+				81B100CF219ABB500065A3B4 /* AraleHeaderViewDataSource.swift */,
+				81B100CC219ABB440065A3B4 /* AraleHeaderViewDelegate.swift */,
+				81B100CA219ABA6A0065A3B4 /* AraleHeaderView.swift */,
 				81B100B4219AB78E0065A3B4 /* Info.plist */,
 			);
 			path = Arale;
@@ -148,6 +160,7 @@
 				TargetAttributes = {
 					81B100AF219AB78E0065A3B4 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 					81B100B8219AB78E0065A3B4 = {
 						CreatedOnToolsVersion = 10.1;
@@ -194,6 +207,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81B100CD219ABB440065A3B4 /* AraleHeaderViewDelegate.swift in Sources */,
+				81B100D0219ABB500065A3B4 /* AraleHeaderViewDataSource.swift in Sources */,
+				81B100CB219ABA6A0065A3B4 /* AraleHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,6 +217,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81B100CE219ABB440065A3B4 /* AraleHeaderViewDelegate.swift in Sources */,
+				81B100D2219AE7EF0065A3B4 /* AraleHeaderView.swift in Sources */,
+				81B100D1219ABB500065A3B4 /* AraleHeaderViewDataSource.swift in Sources */,
 				81B100BF219AB78E0065A3B4 /* AraleTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -341,6 +360,7 @@
 		81B100C5219AB78E0065A3B4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -358,6 +378,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.wiyoza.Arale;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -366,6 +387,7 @@
 		81B100C6219AB78E0065A3B4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -391,6 +413,7 @@
 		81B100C8219AB78E0065A3B4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RU5UXF462E;
 				INFOPLIST_FILE = AraleTests/Info.plist;
@@ -409,6 +432,7 @@
 		81B100C9219AB78E0065A3B4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RU5UXF462E;
 				INFOPLIST_FILE = AraleTests/Info.plist;
