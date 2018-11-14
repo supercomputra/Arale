@@ -59,8 +59,8 @@ func observableScrollViewForHeaderView() -> UIScrollView {
 // To handle action if the HeaderView has resize to maxHeight you can use HeaderViewDelegate
 
 func headerViewWillStartRefreshing() {
+  // If you have a refreshControl in the HeaderView then it will start refreshing for you
   print("Handle Your Refreshing Action Here")
-  araleHeaderView.refreshControl?.startAnimating()
 }
 ```
 
