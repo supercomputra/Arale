@@ -83,7 +83,13 @@ class HeaderView: UIView {
         guard let scrollView = self.observableScrollView else {
             return
         }
-        let topContentInset = minHeight - topSafeAreaHeight + bottomMargin
+        
+        var topContentInset = minHeight + bottomMargin
+        
+        if #available(iOS 11.0, *) {
+            topContentInset -= topSafeAreaHeight
+        }
+        
         scrollView.contentInset.top = topContentInset
     }
     
