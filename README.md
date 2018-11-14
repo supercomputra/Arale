@@ -1,2 +1,2 @@
 # Arale
-A custom stretchy big head for UITableView, UICollectionView, and any UIScrollView children
+A custom stretchy big head for UITableView, UICollectionView, or any UIScrollView subclasses.
