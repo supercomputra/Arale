@@ -10,7 +10,7 @@ A custom stretchy big head for UITableView, UICollectionView, or any UIScrollVie
 
 # Arale, by [ZulwiyozaPutra](https://twitter.com/ZulwiyozaPutra)
 
-- Compatible with `UITableView`, `UICollectionView`, or any `UICollectionView` children.
+- Compatible with `UITableView`, `UICollectionView`, or any `UIScrollView` subclasses.
 - Data source and delegate independency: can be added to an existing view controller withouth interfering with your existing `delegate` or `dataSource`
 - No need to subclass a custom view controller or to use a custom `UICollectionViewLayout`
 - Simple usage: just implement your own subclass and add it to your `UIScrollView` subclass
