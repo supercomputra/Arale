@@ -10,13 +10,13 @@ import UIKit
 
 let ContentOffsetKeyPath = "contentOffset"
 
-class HeaderView: UIView {
-    var minHeight: CGFloat
-    var maxHeight: CGFloat
-    var refreshControl: UIRefreshControl?
+public class HeaderView: UIView {
+    public var minHeight: CGFloat
+    public var maxHeight: CGFloat
+    public var refreshControl: UIRefreshControl?
     
-    weak var dataSource: HeaderViewDataSource?
-    weak var delegate: HeaderViewDelegate?
+    public weak var dataSource: HeaderViewDataSource?
+    public weak var delegate: HeaderViewDelegate?
     
     private var observableScrollView: UIScrollView? {
         get {
@@ -27,7 +27,7 @@ class HeaderView: UIView {
         }
     }
     
-    var bottomMargin: CGFloat
+    public var bottomMargin: CGFloat
     
     @available(iOS 11.0, *)
     private var topSafeAreaHeight: CGFloat {
@@ -47,13 +47,13 @@ class HeaderView: UIView {
         super.init(frame: frame)
     }
     
-    convenience init(minHeight: CGFloat) {
+    convenience public init(minHeight: CGFloat) {
         self.init(frame: CGRect.zero)
         self.minHeight = minHeight
         self.maxHeight = minHeight * 1.5
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -64,7 +64,7 @@ class HeaderView: UIView {
         scrollView.removeObserver(self, forKeyPath: ContentOffsetKeyPath, context: nil)
     }
     
-    override func willMove(toSuperview newSuperview: UIView?) {
+    override open func willMove(toSuperview newSuperview: UIView?) {
         super.willMove(toSuperview: newSuperview)
         
         guard let superview = newSuperview else {
@@ -126,7 +126,7 @@ class HeaderView: UIView {
         refreshControl.beginRefreshing()
     }
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         guard let scrollView = observableScrollView else {
             return
         }

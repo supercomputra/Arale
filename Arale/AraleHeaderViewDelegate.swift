@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol HeaderViewDelegate: class {
+public protocol HeaderViewDelegate: class {
     func headerViewWillStartRefreshing()
 }
