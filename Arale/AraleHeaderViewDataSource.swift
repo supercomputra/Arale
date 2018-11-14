@@ -8,7 +8,7 @@
 
 import UIKit
 
-public protocol HeaderViewDataSource: class {
+public protocol HeaderViewDataSource: NSObjectProtocol {
     func observableScrollViewForHeaderView() -> UIScrollView
 }
 

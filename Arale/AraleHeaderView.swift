@@ -11,12 +11,12 @@ import UIKit
 let ContentOffsetKeyPath = "contentOffset"
 
 public class HeaderView: UIView {
-    public var minHeight: CGFloat
-    public var maxHeight: CGFloat
-    public var refreshControl: UIRefreshControl?
+    open var minHeight: CGFloat
+    open var maxHeight: CGFloat
+    open var refreshControl: UIRefreshControl?
     
-    public weak var dataSource: HeaderViewDataSource?
-    public weak var delegate: HeaderViewDelegate?
+    open weak var dataSource: HeaderViewDataSource?
+    open weak var delegate: HeaderViewDelegate?
     
     private var observableScrollView: UIScrollView? {
         get {
@@ -27,7 +27,7 @@ public class HeaderView: UIView {
         }
     }
     
-    public var bottomMargin: CGFloat
+    open var bottomMargin: CGFloat
     
     @available(iOS 11.0, *)
     private var topSafeAreaHeight: CGFloat {
@@ -126,7 +126,7 @@ public class HeaderView: UIView {
         refreshControl.beginRefreshing()
     }
     
-    override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         guard let scrollView = observableScrollView else {
             return
         }
