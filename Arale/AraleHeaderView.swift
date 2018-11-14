@@ -8,15 +8,17 @@
 
 import UIKit
 
+let ContentOffsetKeyPath = "contentOffset"
+
 class HeaderView: UIView {
-    private(set) var minHeight: CGFloat
+    var minHeight: CGFloat
     var maxHeight: CGFloat
+    var refreshControl: UIRefreshControl?
+    
     weak var dataSource: HeaderViewDataSource?
     weak var delegate: HeaderViewDelegate?
-    var refreshControl: UIRefreshControl?
-    private let ContentOffsetKeyPath = "contentOffset"
     
-    @objc private var observableScrollView: UIScrollView? {
+    private var observableScrollView: UIScrollView? {
         get {
             if let dataSource = self.dataSource {
                 return dataSource.observableScrollViewForHeaderView()
@@ -25,9 +27,23 @@ class HeaderView: UIView {
         }
     }
     
+    var bottomMargin: CGFloat
+    
+    @available(iOS 11.0, *)
+    private var topSafeAreaHeight: CGFloat {
+        get {
+            guard UIApplication.shared.windows.count != 0 else {
+                return 0
+            }
+            let keyWindow = UIApplication.shared.windows[0]
+            return keyWindow.safeAreaInsets.top
+        }
+    }
+    
     private override init(frame: CGRect) {
         self.minHeight = 0
         self.maxHeight = 0
+        self.bottomMargin = 16
         super.init(frame: frame)
     }
     
@@ -50,38 +66,35 @@ class HeaderView: UIView {
     
     override func willMove(toSuperview newSuperview: UIView?) {
         super.willMove(toSuperview: newSuperview)
+        
         guard let superview = newSuperview else {
             return
         }
+        
         self.frame.origin.y = -minHeight
         self.frame.size.width = superview.frame.size.width
         self.frame.size.height = minHeight
         
-        guard let scrollView = self.observableScrollView else {
-            return
-        }
-        
-        let verticalContentOffset = minHeight - getTopSafeAreaHeight()
-        scrollView.contentInset.top = verticalContentOffset
+        setScrollViewContentInset()
         observeScrollViewContentOffset()
     }
     
-    @available(iOS 11.0, *)
-    private func getTopSafeAreaHeight() -> CGFloat {
-        guard UIApplication.shared.windows.count != 0 else {
-            return 0
+    private func setScrollViewContentInset() {
+        guard let scrollView = self.observableScrollView else {
+            return
         }
-        let keyWindow = UIApplication.shared.windows[0]
-        return keyWindow.safeAreaInsets.top
+        let topContentInset = minHeight - topSafeAreaHeight + bottomMargin
+        scrollView.contentInset.top = topContentInset
     }
     
     private func resizeFrameOnScroll(contentOffset: CGPoint) {
         if contentOffset.y <= -minHeight {
-            let difference = -contentOffset.y - minHeight
+            let difference = -contentOffset.y - minHeight - bottomMargin
             frame.size.height = minHeight + difference
-            frame.origin.y = -(minHeight + difference)
+            frame.origin.y = -(minHeight + difference + bottomMargin)
+            
             if contentOffset.y <= maxHeight + difference {
-                delegate?.headerViewWillStartRefreshing()
+                animateRefreshControl()
             }
         }
     }
@@ -112,7 +125,7 @@ class HeaderView: UIView {
             return
         }
         
-        guard let keyPath = keyPath, keyPath == "contentOffset" else {
+        guard let keyPath = keyPath, keyPath == ContentOffsetKeyPath else {
             return
         }
         
