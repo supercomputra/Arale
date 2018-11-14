@@ -1,6 +1,8 @@
 # Arale
 A custom stretchy big head for UITableView, UICollectionView, or any UIScrollView subclasses.
 
+# Demo
+![Example 1](https://media.giphy.com/media/1qbl6sAB2EJh0fi9p7/giphy.gif)
 
 # Arale, by [ZulwiyozaPutra](https://twitter.com/ZulwiyozaPutra)
 
