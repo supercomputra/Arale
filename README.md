@@ -1,3 +1,7 @@
+[![License](https://img.shields.io/cocoapods/l/Arale.svg?style=flat)](http://cocoapods.org/pods/Arale)
+[![Platform](https://img.shields.io/cocoapods/p/Arale.svg?style=flat)](http://cocoapods.org/pods/Arale)
+[![Version](https://img.shields.io/cocoapods/v/Arale.svg?style=flat)](http://cocoapods.org/pods/Arale)
+
 # Arale
 A custom stretchy big head for UITableView, UICollectionView, or any UIScrollView subclasses.
 
