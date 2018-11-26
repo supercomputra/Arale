@@ -12,11 +12,24 @@ let ContentOffsetKeyPath = "contentOffset"
 
 public class AraleHeaderView: UIView {
     /**
+     The refreshControl associated with HeaderView
+     Controlled by its scrollView
+     */
+    open var refreshControl: UIRefreshControl?
+    
+    /**
      Gettable image for HeaderView
      Settable from init method
      @return background image
      */
     open private(set) var backgroundImage: UIImage?
+    
+    /**
+     RefreshControl will automatically endRefreshing after reaching refreshTimoutLimit
+     The default is nil will animate infinitely
+     @return refresh timeout limit if refreshControl is not nil
+     */
+    open var refreshTimeoutLimit: Double?
     
     /**
      Gettable minimum Height for HeaderView
@@ -71,7 +84,7 @@ public class AraleHeaderView: UIView {
     convenience public init(withMinHeight minHeight: CGFloat, bottomMargin: CGFloat = 0, backgroundImage: UIImage? = nil) {
         self.init(frame: CGRect.zero)
         self.minHeight = minHeight
-        self.maxHeight = minHeight * 1.5
+        self.maxHeight = minHeight * 1.25
         self.bottomMargin = bottomMargin
         self.backgroundImage = backgroundImage
     }
@@ -102,6 +115,7 @@ public class AraleHeaderView: UIView {
         setImageView()
         setScrollViewContentInset()
         setLayoutConstraints()
+        setSubviewLayoutConstraints()
         observeScrollViewContentOffset()
         layoutIfNeeded()
     }
@@ -111,7 +125,7 @@ public class AraleHeaderView: UIView {
             return
         }
         
-        if contentOffset.y <= -minHeight {
+        if contentOffset.y < -(minHeight + bottomMargin) {
             if let delegate = self.delegate {
                 delegate.headerViewWillResizeFrame(headerView: self)
             }
@@ -126,15 +140,32 @@ public class AraleHeaderView: UIView {
                 delegate.headerViewDidResizeFrame(headerView: self)
             }
             
-            if contentOffset.y < -(maxHeight + bottomMargin) {
-                if (!isReachedMaxHeight) {
-                    isReachedMaxHeight = true
-                    viewDidReachMaxHeight()
-                } else {
-                    isReachedMaxHeight = false
+            if contentOffset.y <= -(maxHeight + bottomMargin) {
+                if isReachedMaxHeight {
+                    return
                 }
+                isReachedMaxHeight = true
+                viewDidReachMaxHeight()
+            } else {
+                isReachedMaxHeight = false
             }
             
+            guard let refreshControl = self.refreshControl else {
+                return
+            }
+            
+            if refreshControl.isRefreshing {
+                refreshControl.isHidden = false
+            }
+            
+        } else {
+            guard let refreshControl = self.refreshControl else {
+                return
+            }
+            
+            if refreshControl.isRefreshing {
+                refreshControl.isHidden = true
+            }
         }
     }
     
@@ -144,6 +175,26 @@ public class AraleHeaderView: UIView {
         }
         
         delegate.headerViewDidReachMaxHeight(headerView: self)
+        
+        guard let refreshControl = self.refreshControl else {
+            return
+        }
+        
+        if !refreshControl.isRefreshing {
+            refreshControl.beginRefreshing()
+            
+            if #available(iOS 10.0, *) {
+                let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+                feedbackGenerator.impactOccurred()
+            }
+            
+            if let timoutLimit = refreshTimeoutLimit {
+                DispatchQueue.main.asyncAfter(deadline: .now() + timoutLimit) {
+                    refreshControl.endRefreshing()
+                }
+            }
+            
+        }
     }
     
     private func observeScrollViewContentOffset() {
@@ -154,6 +205,7 @@ public class AraleHeaderView: UIView {
     }
     
     override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
         guard let scrollView = self.scrollView else {
             return
         }
@@ -220,5 +272,23 @@ extension AraleHeaderView {
         self.bottomAnchor.constraint(equalTo: scrollView.topAnchor, constant: -self.bottomMargin).isActive = true
         self.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
         self.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+    }
+    
+    private func setSubviewLayoutConstraints() {
+        guard let refreshControl = self.refreshControl else {
+            return
+        }
+        
+        refreshControl.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(refreshControl)
+        
+        let constraints = [
+            refreshControl.leadingAnchor.constraint(equalTo: leadingAnchor),
+            refreshControl.trailingAnchor.constraint(equalTo: trailingAnchor),
+            refreshControl.topAnchor.constraint(equalTo: topAnchor),
+            refreshControl.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ]
+        
+        NSLayoutConstraint.activate(constraints)
     }
 }
