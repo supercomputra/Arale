@@ -13,3 +13,9 @@ public protocol AraleHeaderViewDelegate: NSObjectProtocol {
     func headerViewDidResizeFrame(headerView: AraleHeaderView)
     func headerViewDidReachMaxHeight(headerView: AraleHeaderView)
 }
+
+public extension AraleHeaderView {
+    func headerViewWillResizeFrame(headerView: AraleHeaderView) { return }
+    func headerViewDidResizeFrame(headerView: AraleHeaderView) { return }
+    func headerViewDidReachMaxHeight(headerView: AraleHeaderView) { return }
+}
