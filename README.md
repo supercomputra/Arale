@@ -12,8 +12,7 @@ A custom stretchy big head for UITableView, UICollectionView, or any UIScrollVie
 
 - Compatible with `UITableView`, `UICollectionView`, or any `UIScrollView` subclasses.
 - Data source and delegate independency: can be added to an existing view controller without interfering with your existing `delegate` or `dataSource`.
-- No need to subclass a custom view controller or to use a custom `UICollectionViewLayout`
-- Simple usage: just implement your own subclass and add it to your `UIScrollView` subclass
+- No need to subclass a custom view controller or to use a custom `UICollectionViewLayout`.
 
 
 If you are using this library in your project, I would be more than glad to [know about it!](mailto:zulwiyozaputra@gmail.com)
@@ -36,20 +35,37 @@ self.tableView.addSubview(self.araleHeaderView)
 ...
 
 // In case you want to add an UIActivityIndicatorView
-// To handle action if the AraleHeaderView has resize to maxHeight you can use AraleHeaderViewDelegate
+// To handle action if the AraleHeaderView has resize to maxHeight you can implement a AraleHeaderViewDelegate conformed UIViewController
+
+araleHeaderView.delegate = self
+
+...
+
+// And implement headerViewDidReachMaxHeight to get event when the araleHeaderView did reach the maximum height
 
 func headerViewDidReachMaxHeight(headerView: AraleHeaderView) {
     NSLog("%@", "Start Refreshing")
     headerView.activityIndicatorView.stopAnimating()
 }
+...
+// AraleHeaderViewDelegate comes with three optional delegate method
+func headerViewWillResizeFrame(headerView: AraleHeaderView)
+func headerViewDidResizeFrame(headerView: AraleHeaderView)
+func headerViewDidReachMaxHeight(headerView: AraleHeaderView)
+...
+ 
+
 ```
 
 ## Configuration
 
-You can add UIViewActivityIndicatorView in your stretchy header view:
+You can add an optional `UIViewActivityIndicatorView` in your stretchy header view:
 ```
+let myActivityIndicatorview = UIActivityIndicatorView(style: .white)
 self.araleHeadeView.activityIndicatorView = myActivityIndicatorView
 ```
+
+the `activityIndicatorView` will not be rendered if remain `nil` in case you don't need an activityIndicator.
 
 
 
