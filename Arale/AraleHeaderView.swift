@@ -176,11 +176,9 @@ public class AraleHeaderView: UIView {
     }
     
     private func viewDidReachMaxHeight() {
-        guard let delegate = self.delegate else {
-            return
+        if let delegate = self.delegate {
+            delegate.headerViewDidReachMaxHeight(headerView: self)
         }
-        
-        delegate.headerViewDidReachMaxHeight(headerView: self)
         
         guard let activityIndicatorView = self.activityIndicatorView else {
             return
