@@ -15,7 +15,7 @@ public class AraleHeaderView: UIView {
      The refreshControl associated with HeaderView
      Controlled by its scrollView
      */
-    open var refreshControl: UIRefreshControl?
+    open var activityIndicatorView: UIActivityIndicatorView?
     
     /**
      Gettable image for HeaderView
@@ -38,7 +38,7 @@ public class AraleHeaderView: UIView {
      */
     open private(set) var minHeight: CGFloat
     
-    private var maxHeight: CGFloat
+    open private(set) var maxHeight: CGFloat
     
     /**
      Gettable height for margin with top scrollView
@@ -149,23 +149,29 @@ public class AraleHeaderView: UIView {
             } else {
                 isReachedMaxHeight = false
             }
+        }
+    }
+    
+    private func handleActivityIndicatorAlpha(withContentOffset contentOffset: CGPoint) {
+        if self.window == nil {
+            return
+        }
+        
+        guard let activityIndicatorView = self.activityIndicatorView else {
+            return
+        }
+        
+        if (contentOffset.y < -(minHeight + bottomMargin)) && (contentOffset.y >= -(maxHeight + bottomMargin)) {
+            activityIndicatorView.isOpaque = true
             
-            guard let refreshControl = self.refreshControl else {
-                return
+            var denominator = (-contentOffset.y - (minHeight + bottomMargin))
+            var nominator = (maxHeight + bottomMargin - minHeight)
+            if #available(iOS 11.0, *) {
+                denominator = -contentOffset.y - (minHeight + bottomMargin + topSafeAreaHeight)
+                nominator = maxHeight + bottomMargin - minHeight - topSafeAreaHeight
             }
             
-            if refreshControl.isRefreshing {
-                refreshControl.isHidden = false
-            }
-            
-        } else {
-            guard let refreshControl = self.refreshControl else {
-                return
-            }
-            
-            if refreshControl.isRefreshing {
-                refreshControl.isHidden = true
-            }
+            activityIndicatorView.alpha = denominator/nominator
         }
     }
     
@@ -176,12 +182,12 @@ public class AraleHeaderView: UIView {
         
         delegate.headerViewDidReachMaxHeight(headerView: self)
         
-        guard let refreshControl = self.refreshControl else {
+        guard let activityIndicatorView = self.activityIndicatorView else {
             return
         }
         
-        if !refreshControl.isRefreshing {
-            refreshControl.beginRefreshing()
+        if !activityIndicatorView.isAnimating {
+            activityIndicatorView.startAnimating()
             
             if #available(iOS 10.0, *) {
                 let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
@@ -190,7 +196,11 @@ public class AraleHeaderView: UIView {
             
             if let timoutLimit = refreshTimeoutLimit {
                 DispatchQueue.main.asyncAfter(deadline: .now() + timoutLimit) {
-                    refreshControl.endRefreshing()
+                    activityIndicatorView.stopAnimating()
+                    guard let scrollView = self.scrollView else {
+                        return
+                    }
+                    self.handleActivityIndicatorAlpha(withContentOffset: scrollView.contentOffset)
                 }
             }
             
@@ -223,6 +233,14 @@ public class AraleHeaderView: UIView {
         }
         
         resizeFrameOnScroll(withContentOffset: contentOffset)
+        
+        guard let activityIndicatorView = self.activityIndicatorView else {
+            return
+        }
+        
+        if !activityIndicatorView.isAnimating {
+            handleActivityIndicatorAlpha(withContentOffset: contentOffset)
+        }
     }
 }
 
@@ -275,18 +293,20 @@ extension AraleHeaderView {
     }
     
     private func setSubviewLayoutConstraints() {
-        guard let refreshControl = self.refreshControl else {
+        guard let activityIndicatorView = self.activityIndicatorView else {
             return
         }
         
-        refreshControl.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(refreshControl)
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicatorView.stopAnimating()
+        activityIndicatorView.hidesWhenStopped = false
+        self.addSubview(activityIndicatorView)
         
         let constraints = [
-            refreshControl.leadingAnchor.constraint(equalTo: leadingAnchor),
-            refreshControl.trailingAnchor.constraint(equalTo: trailingAnchor),
-            refreshControl.topAnchor.constraint(equalTo: topAnchor),
-            refreshControl.bottomAnchor.constraint(equalTo: bottomAnchor)
+            activityIndicatorView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            activityIndicatorView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            activityIndicatorView.topAnchor.constraint(equalTo: topAnchor),
+            activityIndicatorView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ]
         
         NSLayoutConstraint.activate(constraints)
