@@ -8,6 +8,8 @@
 
 import Foundation
 
-public protocol HeaderViewDelegate: NSObjectProtocol {
-    func headerViewWillStartRefreshing()
+public protocol AraleHeaderViewDelegate: NSObjectProtocol {
+    func headerViewWillResizeFrame(headerView: AraleHeaderView)
+    func headerViewDidResizeFrame(headerView: AraleHeaderView)
+    func headerViewDidReachMaxHeight(headerView: AraleHeaderView)
 }

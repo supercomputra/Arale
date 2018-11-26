@@ -13,13 +13,7 @@
 		81B100CB219ABA6A0065A3B4 /* AraleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B100CA219ABA6A0065A3B4 /* AraleHeaderView.swift */; };
 		81B100CD219ABB440065A3B4 /* AraleHeaderViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B100CC219ABB440065A3B4 /* AraleHeaderViewDelegate.swift */; };
 		81B100CE219ABB440065A3B4 /* AraleHeaderViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B100CC219ABB440065A3B4 /* AraleHeaderViewDelegate.swift */; };
-		81B100D0219ABB500065A3B4 /* AraleHeaderViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B100CF219ABB500065A3B4 /* AraleHeaderViewDataSource.swift */; };
-		81B100D1219ABB500065A3B4 /* AraleHeaderViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B100CF219ABB500065A3B4 /* AraleHeaderViewDataSource.swift */; };
 		81B100D2219AE7EF0065A3B4 /* AraleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B100CA219ABA6A0065A3B4 /* AraleHeaderView.swift */; };
-		81CE53F6219BEF8A00664504 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81B100B4219AB78E0065A3B4 /* Info.plist */; };
-		81CE53F7219BEF8C00664504 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81B100B4219AB78E0065A3B4 /* Info.plist */; };
-		81CE53F8219BEF8F00664504 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81B100C0219AB78E0065A3B4 /* Info.plist */; };
-		81CE53F9219BEF8F00664504 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81B100C0219AB78E0065A3B4 /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,7 +35,6 @@
 		81B100C0219AB78E0065A3B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81B100CA219ABA6A0065A3B4 /* AraleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AraleHeaderView.swift; sourceTree = "<group>"; };
 		81B100CC219ABB440065A3B4 /* AraleHeaderViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AraleHeaderViewDelegate.swift; sourceTree = "<group>"; };
-		81B100CF219ABB500065A3B4 /* AraleHeaderViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AraleHeaderViewDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,7 +78,6 @@
 			isa = PBXGroup;
 			children = (
 				81B100B3219AB78E0065A3B4 /* Arale.h */,
-				81B100CF219ABB500065A3B4 /* AraleHeaderViewDataSource.swift */,
 				81B100CC219ABB440065A3B4 /* AraleHeaderViewDelegate.swift */,
 				81B100CA219ABA6A0065A3B4 /* AraleHeaderView.swift */,
 				81B100B4219AB78E0065A3B4 /* Info.plist */,
@@ -194,8 +186,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81CE53F8219BEF8F00664504 /* Info.plist in Resources */,
-				81CE53F6219BEF8A00664504 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,8 +193,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81CE53F9219BEF8F00664504 /* Info.plist in Resources */,
-				81CE53F7219BEF8C00664504 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,7 +204,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				81B100CD219ABB440065A3B4 /* AraleHeaderViewDelegate.swift in Sources */,
-				81B100D0219ABB500065A3B4 /* AraleHeaderViewDataSource.swift in Sources */,
 				81B100CB219ABA6A0065A3B4 /* AraleHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -227,7 +214,6 @@
 			files = (
 				81B100CE219ABB440065A3B4 /* AraleHeaderViewDelegate.swift in Sources */,
 				81B100D2219AE7EF0065A3B4 /* AraleHeaderView.swift in Sources */,
-				81B100D1219ABB500065A3B4 /* AraleHeaderViewDataSource.swift in Sources */,
 				81B100BF219AB78E0065A3B4 /* AraleTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
