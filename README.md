@@ -11,7 +11,7 @@ A custom stretchy big head for UITableView, UICollectionView, or any UIScrollVie
 # Arale, by [ZulwiyozaPutra](https://twitter.com/ZulwiyozaPutra)
 
 - Compatible with `UITableView`, `UICollectionView`, or any `UIScrollView` subclasses.
-- Data source and delegate independency: can be added to an existing view controller withouth interfering with your existing `delegate` or `dataSource`
+- Data source and delegate independency: can be added to an existing view controller without interfering with your existing `delegate` or `dataSource`.
 - No need to subclass a custom view controller or to use a custom `UICollectionViewLayout`
 - Simple usage: just implement your own subclass and add it to your `UIScrollView` subclass
 
@@ -26,56 +26,32 @@ To add a stretchy header to your table or collection view, you just have to do t
 
 import Arale
 
-var araleHeaderView: HeaderView!
+var araleHeaderView: AraleHeaderView!
 
 ...
 
-func viewDidLoad() {
-  super.viewDidLoad()
-  let araleHeaderView = HeaderView(minHeight: 256.0)
-  araleHeaderView.delegate = self
-  araleHeaderView.dataSource = self
-  self.araleHeaderView.delegate = self
-  self.araleHeaderView.dataSource = self
-  self.tableView.addSubview(self.araleHeaderView)
-}
-
+let araleHeaderView = AraleHeaderView(minHeight: 256.0, backgroundImage: myBackgroundImage)
+araleHeaderView.delegate = self
+self.tableView.addSubview(self.araleHeaderView)
 ...
 
-// You need to conform your ViewController to HeaderViewDataSource
-// observableScrollViewForHeaderView will return any UIScrollView children instance to be tracked by the HeaderView
+// In case you want to add an UIActivityIndicatorView
+// To handle action if the AraleHeaderView has resize to maxHeight you can use AraleHeaderViewDelegate
 
-func observableScrollViewForHeaderView() -> UIScrollView {
-  guard let tableView = self.tableView else {
-    fatalError()
-  }
-        
-  return tableView
-}
-
-...
-
-// In case you want to add a refreshControl
-// To handle action if the HeaderView has resize to maxHeight you can use HeaderViewDelegate
-
-func headerViewWillStartRefreshing() {
-  // If you have a refreshControl in the HeaderView then it will start refreshing for you
-  print("Handle Your Refreshing Action Here")
+func headerViewDidReachMaxHeight(headerView: AraleHeaderView) {
+    NSLog("%@", "Start Refreshing")
+    headerView.activityIndicatorView.stopAnimating()
 }
 ```
 
 ## Configuration
 
-You can change multiple parameters in your stretchy header view:
-
-```swift
-// you can set the margin between the big head and your content to 0, the default is 16
-araleHeaderView.bottomMargin = 0
-
-// You can change the minimum and maximum content heights
-araleHeaderView.minHeight = 64
-araleHeaderView.maxHeight = 280
+You can add UIViewActivityIndicatorView in your stretchy header view:
 ```
+self.araleHeadeView.activityIndicatorView = myActivityIndicatorView
+```
+
+
 
 ## Installation
 
