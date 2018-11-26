@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
   s.name         = "Arale"
-  s.version      = "0.0.2"
+  s.version      = "0.0.3"
   s.summary      = "A stretchy big header for UITableView, UICollectionView, or any UIScrollView subclasses."
   s.description  = "Arale is a completely customizeble UI component that can be used in any UIScrollView and UIScrollView subclasses to give a stretchy header effect."
   s.homepage     = "https://github.com/ZulwiyozaPutra"
