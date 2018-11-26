@@ -38,6 +38,11 @@ public class AraleHeaderView: UIView {
      */
     open private(set) var minHeight: CGFloat
     
+    /**
+     Gettable maximum Height for HeaderView
+     Constant to 125% of minHeight
+     @return maximum Height to invoke activityIndicator
+     */
     open private(set) var maxHeight: CGFloat
     
     /**
