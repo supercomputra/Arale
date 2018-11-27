@@ -8,7 +8,6 @@
 
 import UIKit
 
-let ContentOffsetKeyPath = "contentOffset"
 
 public class AraleHeaderView: UIView {
     /**
@@ -102,7 +101,7 @@ public class AraleHeaderView: UIView {
         guard let scrollView = self.scrollView else {
             return
         }
-        scrollView.removeObserver(self, forKeyPath: ContentOffsetKeyPath, context: nil)
+        scrollView.removeObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset), context: nil)
     }
     
     public override func didMoveToSuperview() {
@@ -132,7 +131,7 @@ public class AraleHeaderView: UIView {
         
         if contentOffset.y < -(minHeight + bottomMargin) {
             if let delegate = self.delegate {
-                delegate.headerViewWillResizeFrame(headerView: self)
+                delegate.headerViewWillResizeFrame(self)
             }
             
             guard let adjustableHeightAnchor = self.adjustableHeightAnchor else {
@@ -142,7 +141,7 @@ public class AraleHeaderView: UIView {
             adjustableHeightAnchor.constant = -contentOffset.y - bottomMargin
             
             if let delegate = self.delegate {
-                delegate.headerViewDidResizeFrame(headerView: self)
+                delegate.headerViewDidResizeFrame(self)
             }
             
             if contentOffset.y <= -(maxHeight + bottomMargin) {
@@ -182,7 +181,7 @@ public class AraleHeaderView: UIView {
     
     private func viewDidReachMaxHeight() {
         if let delegate = self.delegate {
-            delegate.headerViewDidReachMaxHeight(headerView: self)
+            delegate.headerViewDidReachMaxHeight(self)
         }
         
         guard let activityIndicatorView = self.activityIndicatorView else {
@@ -214,16 +213,15 @@ public class AraleHeaderView: UIView {
         guard let scrollView = self.scrollView else {
             return
         }
-        scrollView.addObserver(self, forKeyPath: ContentOffsetKeyPath, options: [.new], context: nil)
+        scrollView.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset), options: [.new], context: nil)
     }
     
     override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        
         guard let scrollView = self.scrollView else {
             return
         }
         
-        guard let keyPath = keyPath, keyPath == ContentOffsetKeyPath else {
+        guard let keyPath = keyPath, keyPath == #keyPath(UIScrollView.contentOffset) else {
             return
         }
         

@@ -9,13 +9,13 @@
 import Foundation
 
 public protocol AraleHeaderViewDelegate: NSObjectProtocol {
-    func headerViewWillResizeFrame(headerView: AraleHeaderView)
-    func headerViewDidResizeFrame(headerView: AraleHeaderView)
-    func headerViewDidReachMaxHeight(headerView: AraleHeaderView)
+    func headerViewWillResizeFrame(_ headerView: AraleHeaderView)
+    func headerViewDidResizeFrame(_ headerView: AraleHeaderView)
+    func headerViewDidReachMaxHeight(_ headerView: AraleHeaderView)
 }
 
 public extension AraleHeaderView {
-    func headerViewWillResizeFrame(headerView: AraleHeaderView) { return }
-    func headerViewDidResizeFrame(headerView: AraleHeaderView) { return }
-    func headerViewDidReachMaxHeight(headerView: AraleHeaderView) { return }
+    func headerViewWillResizeFrame(_ headerView: AraleHeaderView) { return }
+    func headerViewDidResizeFrame(_ headerView: AraleHeaderView) { return }
+    func headerViewDidReachMaxHeight(_headerView: AraleHeaderView) { return }
 }
