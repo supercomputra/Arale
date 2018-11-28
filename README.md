@@ -29,7 +29,6 @@ import Arale
 `init` with optional `backgroundImage`
 ```swift
 let araleHeaderView = AraleHeaderView(minHeight: 256.0, backgroundImage: myBackgroundImage)
-araleHeaderView.delegate = self
 self.tableView.addSubview(araleHeaderView)
 ```
 
