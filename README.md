@@ -44,7 +44,6 @@ func headerViewDidReachMaxHeight(_ headerView: AraleHeaderView) {
     NSLog("%@", "Start Refreshing")
     headerView.activityIndicatorView.stopAnimating()
 }
-
 ```
 `AraleHeaderViewDelegate` comes with three optional delegate method
 ```swift
@@ -57,7 +56,7 @@ func headerViewDidReachMaxHeight(_ headerView: AraleHeaderView)
 ## Configuration
 
 You can add an optional `UIViewActivityIndicatorView` in your stretchy header view:
-```
+```swift
 let myActivityIndicatorview = UIActivityIndicatorView(style: .white)
 araleHeadeView.activityIndicatorView = myActivityIndicatorView
 ```
