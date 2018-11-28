@@ -3,7 +3,7 @@
 [![Version](https://img.shields.io/cocoapods/v/Arale.svg?style=flat)](http://cocoapods.org/pods/Arale)
 
 # Arale
-A custom stretchy big head for UITableView, UICollectionView, or any UIScrollView subclasses.
+A custom stretchable header view for `UIScrollView` or any its subclasses with `UIActivityIndicatorView` support for reloading your content. Built for iOS 10 and later.
 
 # Demo
 ![Example 1](https://media.giphy.com/media/1qbl6sAB2EJh0fi9p7/giphy.gif)
@@ -24,37 +24,34 @@ To add a stretchy header to your table or collection view, you just have to do t
 ```swift
 
 import Arale
+```
 
-var araleHeaderView: AraleHeaderView!
-
-...
-
+`init` with optional `backgroundImage`
+```swift
 let araleHeaderView = AraleHeaderView(minHeight: 256.0, backgroundImage: myBackgroundImage)
 araleHeaderView.delegate = self
-self.tableView.addSubview(self.araleHeaderView)
-...
+self.tableView.addSubview(araleHeaderView)
+```
 
-// In case you want to add an UIActivityIndicatorView
-// To handle action if the AraleHeaderView has resize to maxHeight you can implement a AraleHeaderViewDelegate conformed UIViewController
-
+In case you want to add a `UIActivityIndicatorView`, to handle action if the `AraleHeaderView` did resize to `maxHeight` you can implement a `AraleHeaderViewDelegate` conformed `UIViewController`
+```swift
 araleHeaderView.delegate = self
+```
 
-...
-
-// And implement headerViewDidReachMaxHeight to get event when the araleHeaderView did reach the maximum height
-
-func headerViewDidReachMaxHeight(headerView: AraleHeaderView) {
+You can implement `headerViewDidReachMaxHeight` method to get event when the `araleHeaderView` did reach the maximum height
+```swift
+func headerViewDidReachMaxHeight(_ headerView: AraleHeaderView) {
     NSLog("%@", "Start Refreshing")
     headerView.activityIndicatorView.stopAnimating()
 }
-...
-// AraleHeaderViewDelegate comes with three optional delegate method
-func headerViewWillResizeFrame(headerView: AraleHeaderView)
-func headerViewDidResizeFrame(headerView: AraleHeaderView)
-func headerViewDidReachMaxHeight(headerView: AraleHeaderView)
-...
- 
 
+```
+`AraleHeaderViewDelegate` comes with three optional delegate method
+```swift
+
+func headerViewWillResizeFrame(_ headerView: AraleHeaderView)
+func headerViewDidResizeFrame(_ headerView: AraleHeaderView)
+func headerViewDidReachMaxHeight(_ headerView: AraleHeaderView)
 ```
 
 ## Configuration
@@ -62,7 +59,7 @@ func headerViewDidReachMaxHeight(headerView: AraleHeaderView)
 You can add an optional `UIViewActivityIndicatorView` in your stretchy header view:
 ```
 let myActivityIndicatorview = UIActivityIndicatorView(style: .white)
-self.araleHeadeView.activityIndicatorView = myActivityIndicatorView
+araleHeadeView.activityIndicatorView = myActivityIndicatorView
 ```
 
 the `activityIndicatorView` will not be rendered if remain `nil` in case you don't need an activityIndicator.
