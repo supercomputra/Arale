@@ -9,7 +9,7 @@
 import UIKit
 
 
-public class AraleHeaderView: UIView {
+open class AraleHeaderView: UIView {
     /**
      The refreshControl associated with HeaderView
      Controlled by its scrollView
