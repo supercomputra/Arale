@@ -24,6 +24,13 @@ open class AraleHeaderView: UIView {
     open private(set) var backgroundImage: UIImage?
     
     /**
+     Gettable image for HeaderView
+     Settable from init method
+     @return the view that is displayed on top of the image view.
+     */
+    open private(set) var overlayView: UIView?
+    
+    /**
      RefreshControl will automatically endRefreshing after reaching refreshTimoutLimit
      The default is nil will animate infinitely
      @return refresh timeout limit if refreshControl is not nil
@@ -85,12 +92,13 @@ open class AraleHeaderView: UIView {
         super.init(frame: frame)
     }
     
-    convenience public init(withMinHeight minHeight: CGFloat, bottomMargin: CGFloat = 0, backgroundImage: UIImage? = nil) {
+    convenience public init(withMinHeight minHeight: CGFloat, bottomMargin: CGFloat = 0, backgroundImage: UIImage? = nil, overlayView: UIView? = nil) {
         self.init(frame: CGRect.zero)
         self.minHeight = minHeight
         self.maxHeight = minHeight * 1.25
         self.bottomMargin = bottomMargin
         self.backgroundImage = backgroundImage
+        self.overlayView = overlayView
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -104,7 +112,7 @@ open class AraleHeaderView: UIView {
         scrollView.removeObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset), context: nil)
     }
     
-    public override func didMoveToSuperview() {
+    open override func didMoveToSuperview() {
         super.didMoveToSuperview()
         guard let superview = self.superview else {
             return
@@ -117,6 +125,7 @@ open class AraleHeaderView: UIView {
         self.scrollView = scrollView
         
         setImageView()
+        setOverlayView()
         setScrollViewContentInset()
         setLayoutConstraints()
         setSubviewLayoutConstraints()
@@ -260,6 +269,19 @@ extension AraleHeaderView {
         imageView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         imageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+    }
+    
+    private func setOverlayView() {
+        guard let overlayView = overlayView else {
+            return
+        }
+        self.addSubview(overlayView)
+        overlayView.clipsToBounds = true
+        overlayView.translatesAutoresizingMaskIntoConstraints = false
+        overlayView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        overlayView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+        overlayView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        overlayView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
     
     private func setScrollViewContentInset() {
