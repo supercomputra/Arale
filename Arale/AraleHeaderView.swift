@@ -9,7 +9,7 @@
 import UIKit
 
 
-public class AraleHeaderView: UIView {
+open class AraleHeaderView: UIView {
     /**
      The refreshControl associated with HeaderView
      Controlled by its scrollView
@@ -22,6 +22,17 @@ public class AraleHeaderView: UIView {
      @return background image
      */
     open private(set) var backgroundImage: UIImage?
+    
+    /**
+     Gettable image for HeaderView
+     Settable from init method
+     @return the view that is displayed on top of the image view.
+     */
+    open private(set) var contentView: UIView = {
+        let contentView = UIView()
+        contentView.backgroundColor = .clear
+        return contentView
+    }()
     
     /**
      RefreshControl will automatically endRefreshing after reaching refreshTimoutLimit
@@ -104,7 +115,7 @@ public class AraleHeaderView: UIView {
         scrollView.removeObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset), context: nil)
     }
     
-    public override func didMoveToSuperview() {
+    open override func didMoveToSuperview() {
         super.didMoveToSuperview()
         guard let superview = self.superview else {
             return
@@ -117,6 +128,7 @@ public class AraleHeaderView: UIView {
         self.scrollView = scrollView
         
         setImageView()
+        setContentView()
         setScrollViewContentInset()
         setLayoutConstraints()
         setSubviewLayoutConstraints()
@@ -260,6 +272,16 @@ extension AraleHeaderView {
         imageView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         imageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+    }
+    
+    private func setContentView() {
+        self.addSubview(contentView)
+        contentView.clipsToBounds = true
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        contentView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+        contentView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        contentView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
     
     private func setScrollViewContentInset() {
