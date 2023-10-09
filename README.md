@@ -8,7 +8,7 @@ A custom stretchable header view for `UIScrollView` or any its subclasses with `
 # Demo
 ![Example 1](https://media.giphy.com/media/1qbl6sAB2EJh0fi9p7/giphy.gif)
 
-# Arale, by [ZulwiyozaPutra](https://twitter.com/ZulwiyozaPutra)
+# Arale
 
 - Compatible with `UITableView`, `UICollectionView`, or any `UIScrollView` subclasses.
 - Data source and delegate independency: can be added to an existing view controller without interfering with your existing `delegate` or `dataSource`.
