@@ -72,10 +72,6 @@ Arale is available through [CocoaPods](http://cocoapods.org). To install it, sim
 pod "Arale"
 ```
 
-## Author
-
-[Zulwiyoza Putra](https://twitter.com/zulwiyozaputra)
-
 ## Contributions
 
 Contributions are more than welcome! If you find a solution for a bug or have an improvement, don't hesitate to [open a pull request](https://github.com/ZulwiyozaPutra/Arale/compare)!
